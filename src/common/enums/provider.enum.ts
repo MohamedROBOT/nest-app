@@ -1,0 +1,6 @@
+export enum PROVIDER_ENUM {
+  SYSTEM,
+  GOOGLE,
+  FACEBOOK,
+  GITHUB,
+}
