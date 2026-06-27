@@ -6,8 +6,12 @@ const generateMessage = (entity: string) => ({
   ALREADY_EXIST: `${entity} already exists`,
   LOGIN_SUCCESS: `${entity} logged in successfully`,
   FOUND_SUCCESS: `${entity} found successfully`,
+  SEND_SUCCESS: `${entity} sent successfully`,
+  SEND_FIALED: `${entity} sending failed`,
+  CREATE_FAILED: `${entity} creation failed`,
 });
 
 export const SYS_MSG = {
   USER: generateMessage('User'),
+  OTP: generateMessage('OTP'),
 };

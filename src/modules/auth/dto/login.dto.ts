@@ -1,8 +1,8 @@
-import { z } from 'zod';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
-export const loginSchema = z.strictObject({
-  email: z.email('Email is not valid'),
-  password: z.string('Password must be a valid string'),
-});
-
-export type LoginDto = z.infer<typeof loginSchema>;
+export class LoginDto {
+  @IsEmail()
+  email: string;
+  @IsNotEmpty()
+  password: string;
+}

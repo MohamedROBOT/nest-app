@@ -5,7 +5,7 @@ export type CustomerDocument = HydratedDocument<User & Customer>;
 
 @Schema()
 export class Customer {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String })
   address: string;
 }
 export const customerSchema = SchemaFactory.createForClass(Customer);

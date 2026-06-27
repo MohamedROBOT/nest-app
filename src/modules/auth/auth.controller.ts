@@ -1,11 +1,12 @@
-import { Body, Controller, Param, Post, UsePipes } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { SYS_MSG } from '../../common';
+import { Public } from '../../decorators/public.decorator';
 import { AuthService } from './auth.service';
-import { loginSchema, type LoginDto } from './dto/login.dto';
+import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
-import { ZodValidationPipe } from '../../pipes';
-
+import { VerifyAccountDto } from './dto/verify.dto';
 @Controller('auth')
+@Public(true)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('register')
@@ -13,11 +14,19 @@ export class AuthController {
     await this.authService.register(registerDto);
     return {
       success: true,
-      message: SYS_MSG.USER.CREATE_SUCCESS,
+      message: SYS_MSG.OTP.SEND_SUCCESS,
     };
   }
-  @Post('login/:id')
-  @UsePipes(new ZodValidationPipe(loginSchema))
+  @Post('verify')
+  async verify(@Body() verifyAccountDto: VerifyAccountDto) {
+    const user = await this.authService.verify(verifyAccountDto);
+    return {
+      success: true,
+      message: SYS_MSG.USER.CREATE_SUCCESS,
+      user,
+    };
+  }
+  @Post('login')
   async login(@Body() loginDto: LoginDto) {
     const tokens = await this.authService.login(loginDto);
     return {
